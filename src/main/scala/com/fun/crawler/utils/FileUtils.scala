@@ -8,12 +8,13 @@ object FileUtils {
 
   val newLine: String = "\n"
 
-  def writeFile(path: String, lines: Seq[String]): Either[Throwable, Unit] = {
+  def writeFile(path: String, lines: Seq[String]): Either[Throwable, File] = {
     val file = new File(path)
     Try(new PrintWriter(file)) match {
       case Success (pw) =>
         lines.foreach(line => pw.write(line + newLine))
-        Right(pw.close)
+        pw.close()
+        Right(file)
       case Failure(error) => Left(error)
     }
   }
