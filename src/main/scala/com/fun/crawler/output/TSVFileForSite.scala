@@ -7,7 +7,7 @@ import com.fun.crawler.model.Site
 import com.fun.crawler.utils.FileUtils
 
 
-class TSVFileForSite(lines: Seq[Site], headers: Seq[String], outputPath: String) extends OutPutInterface[Site, Unit](lines, headers) {
+class TSVFileForSite(lines: Iterable[Site], headers: Seq[String], outputPath: String) extends OutPutInterface[Site, Unit](lines, headers) {
 
   val delimiter: String = "\t"
 

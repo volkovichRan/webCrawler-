@@ -5,6 +5,7 @@ import java.nio.file.{Files, Path}
 import com.fun.crawler.Main
 import com.fun.crawler.model.Site
 import com.fun.crawler.output.TSVFileForSite
+import com.fun.crawler.utils.UrlUtils
 import net.ruippeixotog.scalascraper.browser.JsoupBrowser
 import org.scalatest.flatspec.AnyFlatSpec
 
@@ -40,7 +41,7 @@ class Test extends AnyFlatSpec {
   "url are missing protocol " should "fix the url" in {
     val urlList = List("http://www.google.com", "https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js", "www.facebook.com")
     val expectedResult = List("http://www.google.com", "https://middycdn-a.akamaihd.net/bootstrap/bootstrap.js", "http://www.facebook.com")
-    val result = urlList.map(Main.validOrFixUrl)
+    val result = urlList.map(UrlUtils.validOrFixUrl)
     assert(expectedResult, result)
   }
 
@@ -48,16 +49,16 @@ class Test extends AnyFlatSpec {
     val expectedResult = 136
     val browser = JsoupBrowser()
     val site = browser.get("https://doc.akka.io/docs/akka-http/current/introduction.html")
-    val result = Main.getLinksOfPage(site).length
+    val result = UrlUtils.getLinksOfPage(site).length
     assert(expectedResult, result)
   }
 
   "ration" should "be right" in {
     val sites = Seq(
-      "http://www.foo.com/a.html ",
-      "http://www.foo.com/b/c.html ",
-      "http://baz.foo.com/",
-      "http://www.google.com/baz.html"
+      Site("http://www.foo.com/a.html "),
+      Site("http://www.foo.com/b/c.html "),
+      Site("http://baz.foo.com/"),
+      Site("http://www.google.com/baz.html")
     )
 
     val result = Main.calcRation("www.foo.com", sites)
