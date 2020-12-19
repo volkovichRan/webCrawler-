@@ -1,6 +1,5 @@
 package com.fun.testcrawler
 
-import java.io.File
 import java.nio.file.{Files, Path}
 
 import com.fun.crawler.Main
@@ -15,7 +14,7 @@ class Test extends AnyFlatSpec {
     assertResult(expectedResult)(result)
   }
 
-  "write tab separated value " should  "look like excepted " in {
+  "write tab separated value " should "look like excepted " in {
     val filePath = Path.of("/tmp/output.csv")
     val headers = Seq(
       "url",
@@ -52,5 +51,19 @@ class Test extends AnyFlatSpec {
     val result = Main.getLinksOfPage(site).length
     assert(expectedResult, result)
   }
+
+  "ration" should "be right" in {
+    val sites = Seq(
+      "http://www.foo.com/a.html ",
+      "http://www.foo.com/b/c.html ",
+      "http://baz.foo.com/",
+      "http://www.google.com/baz.html"
+    )
+
+    val result = Main.calcRation("www.foo.com", sites)
+    val expectedResult = 0.5
+    assert(expectedResult, result)
+  }
+
 
 }

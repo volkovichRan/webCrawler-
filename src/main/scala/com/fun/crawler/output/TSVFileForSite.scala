@@ -25,6 +25,4 @@ class TSVFileForSite(lines: Seq[Site], headers: Seq[String], outputPath: String)
     println(throwable.getMessage)
   }
 
-
-
 }
