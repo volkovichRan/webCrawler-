@@ -28,10 +28,7 @@ import scala.util.{Failure, Success, Try}
  */
 object Main extends App {
 
-  /**
-   * Configuration vars
-   */
-  val storeDirectoryPath: String = "/tmp/lightricks/"
+  val storeDirectoryPath: String = "/tmp/"
   val outputFilePath = Path.of("/tmp/output.csv")
   val headers = Seq(
     "url",
@@ -56,8 +53,6 @@ object Main extends App {
       case Failure(exception) =>
         println(filePath)
     }
-
-
   }
 
   def calcRation(url: String, sites: Iterable[Site]): Double = {
@@ -93,11 +88,10 @@ object Main extends App {
     else {
       println(s"$url is already parsed")
     }
-
   }
 
   val browser = JsoupBrowser()
-  crawl("https://doc.akka.io/docs/akka-http/current/introduction.html", 5)
+  crawl("https://doc.akka.io/docs/akka-http/current/introduction.html", 2)
   new TSVFileForSite(sites, headers, outputFilePath.toString).output()
 
 }

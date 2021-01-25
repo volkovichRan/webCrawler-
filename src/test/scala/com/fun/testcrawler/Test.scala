@@ -66,5 +66,4 @@ class Test extends AnyFlatSpec {
     assert(expectedResult, result)
   }
 
-
 }
